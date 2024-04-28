@@ -47,9 +47,13 @@ function Random() {
         setMixedFilter(mixedFilter.filter((_, i) => i !== index));
       }
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     cal();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [mixedFilter]); // Added mixedFilter as a dependency
 
   return (
     <div className="w-full h-screen flex flex-col md:flex-row justify-center items-center overflow-auto">

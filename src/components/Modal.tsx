@@ -1,18 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 function Modal({isModalOpen, setIsModalOpen}: {isModalOpen: boolean, setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>}) {
   const [selectedFood, setSelectedFood] = useState([] as string[]);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log(selectedFood);
+  }, [selectedFood]);
+
   const addSelectedFood = (food: string) => {
     if (selectedFood.includes(food)) {
-      setSelectedFood(selectedFood.filter((item) => item !== food));
-      console.log(selectedFood);
+      setSelectedFood(prevSelectedFood => prevSelectedFood.filter((item) => item !== food));
+      console.log(food);
       return;
     }
-    setSelectedFood(selectedFood.concat(food));
-    console.log(selectedFood);
+    console.log(food)
+    setSelectedFood(prevSelectedFood => [...prevSelectedFood, food]);
   }
 
   const checkIffoodExist = (food: string) => {
