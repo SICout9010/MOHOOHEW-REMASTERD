@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import RandomModal from "../components/RandomModal";
 import foods from "../assets/foods.json";
 
@@ -16,8 +17,13 @@ function Random() {
   const [finalResult, setFinalResult] = useState([] as resultProp[]);
   const [mixedFilter, setMixedFilter] = useState([] as string[]);
   const location = useLocation();
+  const navigate = useNavigate();
   const data = location.state.data;
   console.log("Passed Data: ", data);
+
+  if (!data) {
+    navigate('/');
+  }
 
   const updateSharedState = () => {
     setIsModalOpen(!isModalOpen);
@@ -56,7 +62,8 @@ function Random() {
   }, [mixedFilter]); // Added mixedFilter as a dependency
 
   return (
-    <div className="w-full h-screen flex flex-col md:flex-row justify-center items-center overflow-auto">
+    <div className="w-full h-screen flex flex-col md:flex-row justify-center items-center overflow-auto font-[Prompt]">
+      <button onClick={() => navigate('/')} className="absolute bg-red-500 rounded-2xl w-52 h-12 z-50 top-10 left-10 backdrop-blur-lg shadow-lg border-2 text-white font-bold text-2xl">GO BACK</button>
       <img
         src="/background-2.png"
         alt="background of page 2"
